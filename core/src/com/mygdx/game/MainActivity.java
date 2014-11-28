@@ -1,5 +1,5 @@
 package com.mygdx.game;
-
+//Source: http://gamedev.stackexchange.com/questions/80182/how-do-i-initialize-and-use-a-texture-array-libgdx
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -33,9 +33,9 @@ public class MainActivity extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
         stage = new Stage();
-//        tile[0] = new Texture(Gdx.files.internal("cave.jpg"));
-//        tile[1] = new Texture(Gdx.files.internal("Rainforest.jpg"));
-//        tile[2] = new Texture(Gdx.files.internal("city.jpg"));
+        tile[0] = new Texture(Gdx.files.internal("cave.jpg"));
+        tile[1] = new Texture(Gdx.files.internal("Rainforest.jpg"));
+        tile[2] = new Texture(Gdx.files.internal("city.jpg"));
 
         Gdx.input.setInputProcessor(stage);
         font = new BitmapFont();
@@ -46,19 +46,20 @@ public class MainActivity extends ApplicationAdapter {
         textButtonStyle.font = font;
         textButtonStyle.up = skin.getDrawable("UP");
         textButtonStyle.down = skin.getDrawable("DOWN");
-        textButtonStyle.checked = skin.getDrawable("DOWN");
+        textButtonStyle.checked = skin.getDrawable("UP");
         button = new TextButton("", textButtonStyle);
         button.setSize(Gdx.graphics.getWidth()/6,Gdx.graphics.getWidth()/6);
+        button.setPosition(500,0);
         stage.addActor(button);
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                TempImg = tile[0];
-//                for(int i = 0;i<tile.length-1;i++){
-//                    tile[i]=tile[i+1];
-//
-//                }
-//                tile[tile.length -1] = TempImg;
+                TempImg = tile[0];
+                for(int i = 0;i<tile.length-1;i++){
+                    tile[i]=tile[i+1];
+
+                }
+                tile[tile.length -1] = TempImg;
             }
 
 
@@ -76,9 +77,9 @@ public class MainActivity extends ApplicationAdapter {
     @Override
     public void render () {
         batch.begin();
+
         batch.draw(tile[0], 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.end();
-        super.render();
         stage.draw();
     }
 }
